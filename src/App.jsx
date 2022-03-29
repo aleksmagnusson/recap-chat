@@ -1,45 +1,37 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import ChatMessages from "./components/ChatMessages";
+import Container from "./components/Container";
+import ChatField from "./components/ChatFeild";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [messages, setMessages] = useState([]);
+
+  async function getData() {
+    const response = await axios.get("https://chat.osuka.dev/chat");
+    setMessages(response.data.reverse());
+  }
+
+  useEffect(() => {
+    const id = setInterval(getData, 1000);
+    // Cleanup-funktion
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+  // getData();
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+        <Container>
+          <ChatMessages messages={messages} />
+          <ChatField />
+        </Container>
       </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

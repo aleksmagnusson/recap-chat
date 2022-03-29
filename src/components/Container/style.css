@@ -1,0 +1,30 @@
+.chat-container {
+  width: 400px;
+  height: 700px;
+  border: 3px solid red;
+}
+.chat-messages {
+  height: 620px;
+  width: 100%;
+  border: 3px solid orangered;
+  overflow: scroll;
+
+  display: flex;
+  flex-direction: column-reverse;
+}
+.chat-message {
+  width: 100%;
+  height: 150px;
+  border: 3px solid yellow;
+}
+.chat-field {
+  width: 100%;
+  height: 74px;
+  display: flex;
+}
+.chat-field-input {
+  width: 80%;
+  height: 100%;
+}
+.chat-field-button {
+}
